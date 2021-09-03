@@ -110,6 +110,10 @@ class Adapter extends AdapterCore {
     this._showDockUI = newAdapterUI;
 
     this._webphoneActive = false;
+
+
+    window.clickToCall = this.clickToCall.bind(this);
+    window.clickToSMS = this.clickToSMS.bind(this);
     window.addEventListener('beforeunload', (e) => {
       if (this._webphoneActive && this._webphoneCalls.length > 0) {
         e.preventDefault;
@@ -296,6 +300,7 @@ class Adapter extends AdapterCore {
   }
 
   _renderMainClass() {
+    
     this._container.setAttribute('class', classnames(
       this._styles.root,
       this._styles[this._defaultDirection],
@@ -326,30 +331,35 @@ class Adapter extends AdapterCore {
     ));
   }
 
-  // renderPosition() {
-  //   if (this._fromPopup) {
-  //     return;
-  //   }
-  //   const factor = this._calculateFactor();
-  //   if (this._minimized) {
-  //     if (this._showDockUI) {
-  //       this._container.setAttribute(
-  //         'style',
-  //         `transform: translate(0px, ${this._minTranslateY}px)!important; z-index: ${this._zIndex};`,
-  //       );
-  //     } else {
-  //       this._container.setAttribute(
-  //         'style',
-  //         `transform: translate( ${this._minTranslateX * factor}px, ${-this._padding}px)!important;`
-  //       );
-  //     }
-  //   } else {
-  //     this._container.setAttribute(
-  //       'style',
-  //       `transform: translate(${this._translateX * factor}px, ${this._translateY}px)!important; z-index: ${this._zIndex};`,
-  //     );
-  //   }
-  // }
+  renderPosition() {
+    if(window.onRCMessage){
+      window.onRCMessage({type: 'rc-popup-window', minimized: this._minimized})
+    }
+
+    
+    if (this._fromPopup) {
+      return;
+    }
+    const factor = this._calculateFactor();
+    if (this._minimized) {
+      if (this._showDockUI) {
+        this._container.setAttribute(
+          'style',
+          `transform: translate(0px, ${this._minTranslateY}px)!important; z-index: ${this._zIndex};`,
+        );
+      } else {
+        this._container.setAttribute(
+          'style',
+          `transform: translate( ${this._minTranslateX * factor}px, ${-this._padding}px)!important;`
+        );
+      }
+    } else {
+      this._container.setAttribute(
+        'style',
+        `transform: translate(${this._translateX * factor}px, ${this._translateY}px)!important; z-index: ${this._zIndex};`,
+      );
+    }
+  }
 
   _syncPosition() {
     if (this._fromPopup) {
