@@ -78,7 +78,7 @@ if (process.env.NODE_ENV === 'production') {
   }
 }
 
-const redirectUri = pathParams.redirectUri || process.env.REDIRECT_URI;
+const redirectUri = 'http://localhost:8080/redirect.html'; //pathParams.redirectUri || process.env.REDIRECT_URI;
 const proxyUri = pathParams.proxyUri || process.env.PROXY_URI;
 const disableCall = typeof pathParams.disableCall !== 'undefined';
 const disableMessages = typeof pathParams.disableMessages !== 'undefined';

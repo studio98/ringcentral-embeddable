@@ -22,7 +22,7 @@ class Adapter extends AdapterCore {
     version,
     appWidth = 300,
     appHeight = 500,
-    zIndex = 999,
+    zIndex = 99999,
     enableNotification = false,
     newAdapterUI = false,
     fromPopup = false,
@@ -32,13 +32,13 @@ class Adapter extends AdapterCore {
     const container = document.createElement('div');
     container.id = prefix;
     container.setAttribute('class', classnames(styles.root, styles.loading));
-    container.draggable = false;
+    container.draggable = true;
     super({
       prefix,
       container,
       styles,
       messageTypes,
-      defaultDirection: 'right',
+      defaultDirection: 'left',
     });
     this._messageTypes = messageTypes;
     this._zIndex = zIndex;
@@ -122,6 +122,9 @@ class Adapter extends AdapterCore {
 
   _onMessage(data) {
     if (data) {
+      if(window.onRCMessage){
+        window.onRCMessage(data)
+      }
       switch (data.type) {
         case 'rc-call-ring-notify':
           console.log('ring call:');
@@ -282,7 +285,7 @@ class Adapter extends AdapterCore {
     this._popupEl = this._root.querySelector(
       `.${this._styles.popup}`
     );
-    this._iconEl.addEventListener('dragstart', () => false);
+    // this._iconEl.addEventListener('dragstart', () => false);
     this._iconContainerEl = this._root.querySelector(
       `.${this._styles.iconContainer}`
     );
@@ -298,7 +301,7 @@ class Adapter extends AdapterCore {
       this._styles[this._defaultDirection],
       this._closed && this._styles.closed,
       this._minimized && this._styles.minimized,
-      this._dragging && this._styles.dragging,
+      // this._dragging && this._styles.dragging,
       this._hover && this._styles.hover,
       this._loading && this._styles.loading,
       this._showDockUI && this._styles.dock,
@@ -323,30 +326,30 @@ class Adapter extends AdapterCore {
     ));
   }
 
-  renderPosition() {
-    if (this._fromPopup) {
-      return;
-    }
-    const factor = this._calculateFactor();
-    if (this._minimized) {
-      if (this._showDockUI) {
-        this._container.setAttribute(
-          'style',
-          `transform: translate(0px, ${this._minTranslateY}px)!important; z-index: ${this._zIndex};`,
-        );
-      } else {
-        this._container.setAttribute(
-          'style',
-          `transform: translate( ${this._minTranslateX * factor}px, ${-this._padding}px)!important;`
-        );
-      }
-    } else {
-      this._container.setAttribute(
-        'style',
-        `transform: translate(${this._translateX * factor}px, ${this._translateY}px)!important; z-index: ${this._zIndex};`,
-      );
-    }
-  }
+  // renderPosition() {
+  //   if (this._fromPopup) {
+  //     return;
+  //   }
+  //   const factor = this._calculateFactor();
+  //   if (this._minimized) {
+  //     if (this._showDockUI) {
+  //       this._container.setAttribute(
+  //         'style',
+  //         `transform: translate(0px, ${this._minTranslateY}px)!important; z-index: ${this._zIndex};`,
+  //       );
+  //     } else {
+  //       this._container.setAttribute(
+  //         'style',
+  //         `transform: translate( ${this._minTranslateX * factor}px, ${-this._padding}px)!important;`
+  //       );
+  //     }
+  //   } else {
+  //     this._container.setAttribute(
+  //       'style',
+  //       `transform: translate(${this._translateX * factor}px, ${this._translateY}px)!important; z-index: ${this._zIndex};`,
+  //     );
+  //   }
+  // }
 
   _syncPosition() {
     if (this._fromPopup) {
@@ -408,7 +411,7 @@ class Adapter extends AdapterCore {
     }
     return super._onPushAdapterState({
       ...options,
-      minimized: false,
+      minimized: true,
     });
   }
 
