@@ -131,8 +131,8 @@ class Adapter extends AdapterCore {
       }
       switch (data.type) {
         case 'rc-call-ring-notify':
-          console.log('ring call:');
-          console.log(data.call);
+          // console.log('ring call:');
+          // console.log(data.call);
           this.setMinimized(false);
           if (this._notification) {
             this._notification.notify({
@@ -146,71 +146,71 @@ class Adapter extends AdapterCore {
           this._updateWebphoneCalls(data.call);
           break;
         case 'rc-call-init-notify':
-          console.log('init call:');
-          console.log(data.call);
+          // console.log('init call:');
+          // console.log(data.call);
           this._updateWebphoneCalls(data.call);
           break;
         case 'rc-call-start-notify':
-          console.log('start call:');
-          console.log(data.call);
+          // console.log('start call:');
+          // console.log(data.call);
           this._updateWebphoneCalls(data.call);
           break;
         case 'rc-call-end-notify':
-          console.log('end call:');
-          console.log(data.call);
+          // console.log('end call:');
+          // console.log(data.call);
           this._updateWebphoneCalls(data.call);
           break;
         case 'rc-call-hold-notify':
-          console.log('hold call:');
-          console.log(data.call);
+          // console.log('hold call:');
+          // console.log(data.call);
           this._updateWebphoneCalls(data.call);
           break;
         case 'rc-call-resume-notify':
-          console.log('resume call:');
-          console.log(data.call);
+          // console.log('resume call:');
+          // console.log(data.call);
           this._updateWebphoneCalls(data.call);
           break;
         case 'rc-call-mute-notify':
           // get call on call muted or unmuted event
-          console.log('call muted changed:');
-          console.log(data.call);
+          // console.log('call muted changed:');
+          // console.log(data.call);
           break;
         case 'rc-webphone-active-notify':
           this._webphoneActive = data.currentActive;
           break;
         case 'rc-login-status-notify':
-          console.log('rc-login-status-notify:', data.loggedIn, data.loginNumber);
+          // console.log('rc-login-status-notify:', data.loggedIn, data.loginNumber);
           break;
         case 'rc-calling-settings-notify':
-          console.log('rc-calling-settings-notify:', data.callWith, data.callingMode);
+          // console.log('rc-calling-settings-notify:', data.callWith, data.callingMode);
           break;
         case 'rc-region-settings-notify':
-          console.log('rc-region-settings-notify:', data.countryCode, data.areaCode);
+          // console.log('rc-region-settings-notify:', data.countryCode, data.areaCode);
           break;
         case 'rc-active-call-notify':
-          console.log('rc-active-call-notify:', data.call);
+          // console.log('rc-active-call-notify:', data.call);
           break;
         case 'rc-ringout-call-notify':
-          console.log('rc-ringout-call-notify:', data.call);
+          // console.log('rc-ringout-call-notify:', data.call);
           break;
         case 'rc-inbound-message-notify':
-          console.log('rc-inbound-message-notify:', data.message.id);
+          // console.log('rc-inbound-message-notify:', data.message.id);
           break;
         case 'rc-message-updated-notify':
-          console.log('rc-message-updated-notify:', data.message.id);
+          // console.log('rc-message-updated-notify:', data.message.id);
           break;
         case 'rc-route-changed-notify':
           this._updateWidgetCurrentPath(data.path);
-          console.log('rc-route-changed-notify:', data.path);
+          // console.log('rc-route-changed-notify:', data.path);
           break;
         case 'rc-callLogger-auto-log-notify':
-          console.log('rc-callLogger-auto-log-notify:', data.autoLog);
+          // console.log('rc-callLogger-auto-log-notify:', data.autoLog);
           break;
         case 'rc-dialer-status-notify':
-          console.log('rc-dialer-status-notify:', data.ready);
+          // console.log('rc-dialer-status-notify:', data.ready);
           break;
         case 'rc-meeting-status-notify':
-          console.log('rc-meeting-status-notify:', data.ready, data.permission);
+          // console.log('rc-meeting-status-notify:', data.ready, data.permission);
           break;
         default:
           super._onMessage(data);
